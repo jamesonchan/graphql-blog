@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import Author from "../../components/Author";
 import Categories from "../../components/Categories";
 import CommentForm from "../../components/CommentForm";
@@ -15,7 +14,7 @@ interface PostDetailsProps {
 
 const PostDetails: React.FC<PostDetailsProps> = ({
   post,
-  post: { author, slug, createdAt, categories },
+  post: { author, slug, categories },
 }) => {
 
 
@@ -32,7 +31,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           <div className="relative lg:sticky top-8">
             <PostWidget
               slug={slug}
-              categories={post[0].categories.map((item) => item.slug)}
+              categories={categories.map((item) => item.slug)}
             />
             <Categories />
           </div>

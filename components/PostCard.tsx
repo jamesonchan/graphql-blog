@@ -10,6 +10,7 @@ export type PostPropsType = {
   createdAt: string;
   excerpt: string;
   categories: [string];
+  content:{raw:{children:string[]}}
 };
 
 interface PostCardProps {

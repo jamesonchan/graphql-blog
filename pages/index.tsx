@@ -9,7 +9,6 @@ interface homeProps {
 }
 
 const Home: React.FC<homeProps> = ({ posts }) => {
-
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -44,5 +43,3 @@ export async function getStaticProps() {
     },
   };
 }
-
-

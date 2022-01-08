@@ -1,6 +1,6 @@
 import { request, gql } from "graphql-request";
 
-const graphqlAPI: string = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT as string;
+const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT as string;
 
 export const getPosts = async () => {
   const query = gql`
@@ -39,34 +39,33 @@ export const getPosts = async () => {
 export const getPostDetails = async (slug: string) => {
   const query = gql`
     query GetPostDetails($slug: String!) {
-      posts(where: { slug: $slug }) {
+      post(where: { slug: $slug }) {
+        title
+        excerpt
+        featuredImage {
+          url
+        }
         author {
-          bio
-          id
           name
+          bio
           photo {
             url
           }
         }
         createdAt
         slug
-        title
-        excerpt
-        featuredImage {
-          url
+        content {
+          raw
         }
         categories {
           name
           slug
         }
-        content {
-          raw
-        }
       }
     }
   `;
   const result = await request(graphqlAPI, query, { slug });
-  return result.posts;
+  return result.post;
 };
 
 export const getRecentPosts = async () => {
@@ -105,7 +104,7 @@ export const getSimilarPosts = async (slug: string, categories: [string]) => {
       }
     }
   `;
-  const result = await request(graphqlAPI, query);
+  const result = await request(graphqlAPI, query, { slug, categories });
   return result.posts;
 };
 
@@ -120,4 +119,15 @@ export const getCategories = async () => {
   `;
   const result = await request(graphqlAPI, query);
   return result.categories;
+};
+
+export const submitComment = async (obj: object) => {
+  const result = await fetch("/api/comments", {
+    method: "POST",
+    headers:{
+      'Content-Type':'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
+  return result.json();
 };
