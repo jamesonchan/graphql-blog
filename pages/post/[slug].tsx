@@ -25,7 +25,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({
           <PostDetail post={post} />
           <Author author={author} />
           <CommentForm slug={slug} />
-          <Comments />
+          <Comments slug={slug}/>
         </div>
         <div className="col-span-1 lg:col-span-4">
           <div className="relative lg:sticky top-8">
